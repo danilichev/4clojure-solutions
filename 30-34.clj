@@ -10,7 +10,8 @@
         (swap! coll conj i)))
     (reverse @coll))
 
-;; more elegant solution (from https://clojuredocs.org/clojure.core/identity):
+;; more elegant solution
+;; (from https://clojuredocs.org/clojure.core/identity):
 
 #(map first (partition-by identity %))
 
@@ -40,7 +41,8 @@
 
 
 ;; #33 - Replicate a Sequence
-;; Write a function which replicates each element of a sequence a variable number of times.
+;; Write a function which replicates each element of a sequence
+;; a variable number of times.
 ;; (= (__ [1 2 3] 2) '(1 1 2 2 3 3))
 ;; (= (__ [:a :b] 4) '(:a :a :a :a :b :b :b :b))
 ;; (= (__ [4 5 6] 1) '(4 5 6))
@@ -52,7 +54,21 @@
 
 
 ;; #34 - Implement range
-;; Write a function which creates a list of all integers in a given range. !!!Special Restrictions - range
+;; Write a function which creates a list of all integers in a given range.
+;; !!!Special Restrictions - range
 ;; (= (__ 1 4) '(1 2 3))
 ;; (= (__ -2 2) '(-2 -1 0 1))
 ;; (= (__ 5 8) '(5 6 7))
+
+(fn [x y]
+  (loop [coll (list x)]
+    (if (= (first coll) y)
+      (reverse (rest coll))
+      (recur (conj coll (inc (first coll)))))))
+
+;; after a few minutes of reading documentation
+
+#(take (- %2 %1) (iterate inc %1))
+
+
+
